@@ -1,0 +1,33 @@
+# General
+*.swp
+*.log
+
+
+# Built software
+sw/build/*
+
+
+# Synthesis
+synth/run
+synth/ddc
+synth/netlist
+synth/rpt
+synth/sdf
+
+
+# Memory
+## Only use RA1SHD_tt_1p2v_25c_syn.lib in our design
+RA1SHD_ff_1p32v_m40c_syn.lib
+RA1SHD_ff_1p65v_125c_syn.lib
+RA1SHD_ss_1p08v_125c_syn.lib
+
+## CDL, GDS2, DB, CLF
+mem/*.cdl
+mem/*.gds2
+mem/*.db
+mem/*.clf
+mem/*.txt
+
+
+# APR
+apr/run
