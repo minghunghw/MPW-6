@@ -1,10 +1,12 @@
 # Configurations
 ## Set top design
-set top         pulpino_mem
+set top         pulpino_core
 
 ## Set main clock and reset for the top design
-set clk_port    clk_l2h
-set rst_port    rstn_l2h
+set clk_port    clk
+set rst_port    rst_n
+# set clk_port    clk_l2h
+# set rst_port    rstn_l2h
 
 ## Set clock period
 set clk_period  8
@@ -64,11 +66,25 @@ set include_dirs " \
 "
 
 ## 0.13um IBM Artisan Library
+
+# set SYNOPSYS [get_unix_variable SYNOPSYS]
+# set search_path_mem     "$PULPINO_TOP/mem/ibm130"
+# set search_path_artisan "/afs/umich.edu/class/eecs627/ibm13/artisan/current/aci/sc-x/synopsys/"
+# set target_library      "typical.db"
+# set mem_library         "RA1SHD_tt_1p2v_25c_syn.db"
+# set synthetic_library   "dw_foundation.sldb"
+
+
+# set_app_var search_path       "$include_dirs $search_path_mem $search_path_artisan $SYNOPSYS/libraries/syn"
+# set_app_var target_library    $target_library
+# set_app_var synthetic_library $synthetic_library
+# set_app_var link_library      "* $target_library $mem_library $synthetic_library"
+
 set SYNOPSYS [get_unix_variable SYNOPSYS]
-set search_path_mem     "$PULPINO_TOP/mem"
-set search_path_artisan "/afs/umich.edu/class/eecs627/ibm13/artisan/current/aci/sc-x/synopsys/"
-set target_library      "typical.db"
-set mem_library         "RA1SHD_tt_1p2v_25c_syn.db"
+set search_path_mem     "$PULPINO_TOP/mem/sky130"
+set search_path_artisan "/afs/eecs.umich.edu/vlsida/projects/restricted/google/platforms/sky130/sky130/sky130_fd_sc_hd/lib/"
+set target_library      "sky130_fd_sc_hd__tt_025C_1v80.db"
+set mem_library         "sky130_sram_2kbyte_1rw_32x512_8_TT_1p8V_25C.db"
 set synthetic_library   "dw_foundation.sldb"
 
 
@@ -120,22 +136,22 @@ create_clock -period 40.000 -name tck      [get_nets tck_i]
 
 
 # Define design environments
-set op_cond                  "typical"
+set op_cond                  "tt_025C_1v80"
 set rst_drive                0
-set driving_cell             "INVX2TR"
+set driving_cell             "sky130_fd_sc_hd__clkinv_1"
 set avg_load                 0.1
 set avg_fo_load              10
-set auto_wire_load_selection "false"
+set auto_wire_load_selection "true"
 
-set_operating_conditions $op_cond -library "typical"
+set_operating_conditions $op_cond -library "sky130_fd_sc_hd__tt_025C_1v80"
 set_drive $rst_drive $rst_port
 set_driving_cell -lib_cell $driving_cell [all_inputs]
 remove_driving_cell [find port $clk_ports]
 set_load $avg_load [all_outputs]
 set_fanout_load $avg_fo_load [all_outputs]
 set_resistance 0 $rst_port
-set_wire_load_model -name "ibm13_wl10" -library "typical"
-set_wire_load_mode "segmented"
+# set_wire_load_model -name "ibm13_wl10" -library "sky130_fd_sc_hd__tt_025C_1v80"
+# set_wire_load_mode "segmented"
 
 
 # Define design constraints

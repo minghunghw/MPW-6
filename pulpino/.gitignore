@@ -1,6 +1,9 @@
 # General
 *.swp
 *.log
+csrc
+dve.daidir
+DVEfiles
 
 
 # Built software
@@ -13,6 +16,7 @@ synth/ddc
 synth/netlist
 synth/rpt
 synth/sdf
+synth/*.lib
 
 
 # Memory
@@ -22,11 +26,11 @@ RA1SHD_ff_1p65v_125c_syn.lib
 RA1SHD_ss_1p08v_125c_syn.lib
 
 ## CDL, GDS2, DB, CLF
-mem/*.cdl
-mem/*.gds2
-mem/*.db
-mem/*.clf
-mem/*.txt
+mem/*/*.cdl
+mem/*/*.gds2
+mem/*/*.db
+mem/*/*.clf
+mem/*/*.txt
 
 
 # APR
